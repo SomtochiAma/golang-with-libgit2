@@ -1,0 +1,1 @@
+{"buildTargets":["/home/levi/go/src/github.com/fluxcd/golang-with-libgit2/build/libgit2/lib/libgit2.a","/home/levi/go/src/github.com/fluxcd/golang-with-libgit2/build/musl/x86_64-linux-musl-native/bin/x86_64-linux-musl-gcc","build","builder","dev-test","test"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

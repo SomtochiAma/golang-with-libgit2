@@ -1,0 +1,9 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/levi/go/src/github.com/fluxcd/golang-with-libgit2'
+docker buildx build \
+	--platform=linux/amd64,linux/arm/v7,linux/arm64 \
+	--tag ghcr.io/fluxcd/golang-with-libgit2:latest \
+	--file Dockerfile \
+	 .
+make: Leaving directory '/home/levi/go/src/github.com/fluxcd/golang-with-libgit2'
+ 
