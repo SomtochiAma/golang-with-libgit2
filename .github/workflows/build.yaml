@@ -155,7 +155,6 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: 1
         run: |
-# cosign sign ${{ steps.meta_libgit2_all.outputs.tags }}
           cosign sign ${{ steps.meta_libgit2_all.outputs.tags }}
 
       - name: Compose release candidate metadata - golang-with-libgit2-only
