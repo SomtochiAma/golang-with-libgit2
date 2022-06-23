@@ -31,6 +31,8 @@ jobs:
             VERSION=${GITHUB_REF/refs\/tags\//}
           fi
           echo ::set-output name=VERSION::${VERSION}
+      - name: Setup Syft
+        uses: anchore/sbom-action/download-syft@v0
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
