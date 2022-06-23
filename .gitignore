@@ -1,2 +1,5 @@
 build/
 vendor/
+
+# Generated library files
+*.tar.gz
