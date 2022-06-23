@@ -89,7 +89,7 @@ jobs:
           file: Dockerfile
           platforms: ${{ env.PLATFORMS }}
           push: true
-          tags: localhost:5000/${{ github.repository_owner }}/golang-with-libgit2-all:latest
+          tags: localhost:5000/somtochiama/golang-with-libgit2-all:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
       - name: Build candidate image - libgit2 only
@@ -100,13 +100,13 @@ jobs:
           file: Dockerfile.libgit2-only
           platforms: ${{ env.PLATFORMS }}
           push: true
-          tags: localhost:5000/${{ github.repository_owner }}/golang-with-libgit2-only:latest
+          tags: localhost:5000/somtochiama/golang-with-libgit2-only:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
       - name: Inspect candidate images
         run: |
-          docker buildx imagetools inspect localhost:5000/${{ github.repository_owner }}/golang-with-libgit2-all:latest
-          docker buildx imagetools inspect localhost:5000/${{ github.repository_owner }}/golang-with-libgit2-only:latest
+          docker buildx imagetools inspect localhost:5000/somtochiama/golang-with-libgit2-all:latest
+          docker buildx imagetools inspect localhost:5000/somtochiama/golang-with-libgit2-only:latest
       - name: Test candidate images
         id: test_candidate
         run: |
