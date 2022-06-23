@@ -156,10 +156,10 @@ jobs:
           COSIGN_EXPERIMENTAL: 1
         run: |
           array=($(echo ${{ steps.meta_libgit2_all.outputs.tags }} | tr '\n' " "))
-          for element in "${array[@]}"
+          for image in "${array[@]}"
           do
-            echo ${element}
-            cosign sign $element
+            echo $image
+            cosign sign $image
           done
 
       - name: Compose release candidate metadata - golang-with-libgit2-only
