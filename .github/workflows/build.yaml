@@ -155,6 +155,7 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: 1
         run: |
+          echo ${{ steps.meta_libgit2_all.outputs.tags }}
           cosign sign ${{ steps.meta_libgit2_all.outputs.tags }}
 
       - name: Compose release candidate metadata - golang-with-libgit2-only
@@ -186,5 +187,5 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: 1
         run: |
-          cosign sign somtochiama/golang-with-libgit2-only:${{ steps.meta_libgit2_all.outputs.tags }}
-          cosign sign ghcr.io/somtochiama/golang-with-libgit2-only:${{ steps.meta_libgit2_all.outputs.tags }}      
+          echo ${{ steps.meta_libgit2_all.outputs.tags }} 
+          cosign sign ${{ steps.meta_libgit2_all.outputs.tags }}      
