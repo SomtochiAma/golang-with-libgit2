@@ -110,8 +110,8 @@ jobs:
       - name: Test candidate images
         id: test_candidate
         run: |
-          IMG=localhost:5000/${{ github.repository_owner }}/golang-with-libgit2-all make test
-          IMG=localhost:5000/${{ github.repository_owner }}/golang-with-libgit2-only LIBGIT2_ONLY=true make test
+          IMG=localhost:5000/somtochiama/golang-with-libgit2-all make test
+          IMG=localhost:5000/somtochiama/golang-with-libgit2-only LIBGIT2_ONLY=true make test
       - # Temp fix
         # https://github.com/docker/build-push-action/issues/252
         # https://github.com/moby/buildkit/issues/1896
@@ -124,7 +124,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: somtochiama
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Compose release candidate metadata - golang-with-libgit2-all
         id: meta_libgit2_all
@@ -132,7 +132,7 @@ jobs:
         if: github.event_name != 'pull_request'
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/golang-with-libgit2-all
+            ghcr.io/somtochiama/golang-with-libgit2-all
           tags: |
             type=schedule
             type=ref,event=branch
@@ -155,8 +155,8 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: 1
         run: |
-          cosign sign ${{ github.repository_owner }}/golang-with-libgit2-all:${{ steps.meta_libgit2_all.outputs.tags }}
-          cosign sign ghcr.io/${{ github.repository_owner }}/golang-with-libgit2-all:${{ steps.meta_libgit2_all.outputs.tags }}
+          cosign sign somtochiama/golang-with-libgit2-all:${{ steps.meta_libgit2_all.outputs.tags }}
+          cosign sign ghcr.io/somtochiama/golang-with-libgit2-all:${{ steps.meta_libgit2_all.outputs.tags }}
 
       - name: Compose release candidate metadata - golang-with-libgit2-only
         id: meta_libgit2_only
@@ -164,7 +164,7 @@ jobs:
         if: github.event_name != 'pull_request'
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/golang-with-libgit2-only
+            ghcr.io/somtochiama/golang-with-libgit2-only
           tags: |
             type=schedule
             type=ref,event=branch
@@ -187,5 +187,5 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: 1
         run: |
-          cosign sign ${{ github.repository_owner }}/golang-with-libgit2-only:${{ steps.meta_libgit2_all.outputs.tags }}
-          cosign sign ghcr.io/${{ github.repository_owner }}/golang-with-libgit2-only:${{ steps.meta_libgit2_all.outputs.tags }}      
+          cosign sign somtochiama/golang-with-libgit2-only:${{ steps.meta_libgit2_all.outputs.tags }}
+          cosign sign ghcr.io/somtochiama/golang-with-libgit2-only:${{ steps.meta_libgit2_all.outputs.tags }}      
