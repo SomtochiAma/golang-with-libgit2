@@ -155,8 +155,12 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: 1
         run: |
-          echo ${{ steps.meta_libgit2_all.outputs.tags }}
-          cosign sign ${{ steps.meta_libgit2_all.outputs.tags }}
+          array=($(echo ${{ steps.meta_libgit2_all.outputs.tags }} | tr '\n' " "))
+          for element in "${array[@]}"
+          do
+            echo ${element}
+            cosign sign $element
+          done
 
       - name: Compose release candidate metadata - golang-with-libgit2-only
         id: meta_libgit2_only
@@ -187,5 +191,9 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: 1
         run: |
-          echo ${{ steps.meta_libgit2_all.outputs.tags }} 
-          cosign sign ${{ steps.meta_libgit2_all.outputs.tags }}      
+          array=($(echo ${{ steps.meta_libgit2_all.outputs.tags }} | tr '\n' " "))
+          for element in "${array[@]}"
+          do
+            echo ${element}
+            cosign sign $element
+          done
