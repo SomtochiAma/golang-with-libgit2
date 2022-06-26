@@ -15,34 +15,35 @@ on:
 
 permissions:
   contents: write # needed to write releases
+  id-token: write # needed for keyless signing
 
 jobs:
 
-  github_release:
-    runs-on: ubuntu-latest
-    outputs:
-      release_upload_url: ${{ steps.create_release.outputs.upload_url }}
-    steps:
-      - name: Prepare
-        id: prep
-        run: |
-          VERSION="${{ github.event.inputs.tag }}-${GITHUB_SHA::8}"
-          if [[ $GITHUB_REF == refs/tags/* ]]; then
-            VERSION=${GITHUB_REF/refs\/tags\//}
-          fi
-          echo ::set-output name=VERSION::${VERSION}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          release_name: ${{ steps.prep.outputs.VERSION }}
-          tag_name: ${{ steps.prep.outputs.VERSION }}
-          draft: false
-          prerelease: true
-      - name: Setup Syft
-        uses: anchore/sbom-action@v0
+  # github_release:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     release_upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #   steps:
+  #     - name: Prepare
+  #       id: prep
+  #       run: |
+  #         VERSION="${{ github.event.inputs.tag }}-${GITHUB_SHA::8}"
+  #         if [[ $GITHUB_REF == refs/tags/* ]]; then
+  #           VERSION=${GITHUB_REF/refs\/tags\//}
+  #         fi
+  #         echo ::set-output name=VERSION::${VERSION}
+  #     - name: Create Release
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ github.token }}
+  #       with:
+  #         release_name: ${{ steps.prep.outputs.VERSION }}
+  #         tag_name: ${{ steps.prep.outputs.VERSION }}
+  #         draft: false
+  #         prerelease: true
+  #     - name: Setup Syft
+  #       uses: anchore/sbom-action@v0
 
   linux-amd64-release:
     runs-on: ubuntu-latest
@@ -64,16 +65,16 @@ jobs:
 
           tar -zcvf linux-x86_64-libgit2-all-libs.tar.gz libgit2-linux-libgit2-all
           rm -rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/libgit2
-      - name: Upload Release Asset
-        id: upload-release-asset-libgit2-all
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ needs.github_release.outputs.release_upload_url }}
-          asset_path: ./linux-x86_64-libgit2-all-libs.tar.gz
-          asset_name: linux-x86_64-libgit2-all-libs.tar.gz
-          asset_content_type: application/gzip
+      # - name: Upload Release Asset
+      #   id: upload-release-asset-libgit2-all
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     upload_url: ${{ needs.github_release.outputs.release_upload_url }}
+      #     asset_path: ./linux-x86_64-libgit2-all-libs.tar.gz
+      #     asset_name: linux-x86_64-libgit2-all-libs.tar.gz
+      #     asset_content_type: application/gzip
 
       - name: Build static libraries - libgit2 only
         run: |
@@ -87,16 +88,16 @@ jobs:
 
           tar -zcvf linux-x86_64-libgit2-only-lib.tar.gz libgit2-linux-libgit2-only
           rm -rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/libgit2
-      - name: Upload Release Asset
-        id: upload-release-asset-libgit2-only
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ needs.github_release.outputs.release_upload_url }}
-          asset_path: ./linux-x86_64-libgit2-only-lib.tar.gz
-          asset_name: linux-x86_64-libgit2-only-lib.tar.gz
-          asset_content_type: application/gzip
+      # - name: Upload Release Asset
+      #   id: upload-release-asset-libgit2-only
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     upload_url: ${{ needs.github_release.outputs.release_upload_url }}
+      #     asset_path: ./linux-x86_64-libgit2-only-lib.tar.gz
+      #     asset_name: linux-x86_64-libgit2-only-lib.tar.gz
+      #     asset_content_type: application/gzip
 
   darwin-release:
     # This job builds and releases "universal libraries" that are
@@ -158,16 +159,16 @@ jobs:
           rm -rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/libgit2
         env:
           MACOSX_DEPLOYMENT_TARGET: 10.15
-      - name: Upload Release Asset
-        id: upload-release-asset-libgit2-all
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ needs.github_release.outputs.release_upload_url }}
-          asset_path: ./darwin-libgit2-all-libs.tar.gz
-          asset_name: darwin-libgit2-all-libs.tar.gz
-          asset_content_type: application/gzip
+      # - name: Upload Release Asset
+      #   id: upload-release-asset-libgit2-all
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     upload_url: ${{ needs.github_release.outputs.release_upload_url }}
+      #     asset_path: ./darwin-libgit2-all-libs.tar.gz
+      #     asset_name: darwin-libgit2-all-libs.tar.gz
+      #     asset_content_type: application/gzip
 
       - name: Build universal static libraries for Darwin - libgit2 only
         run: |
@@ -193,13 +194,34 @@ jobs:
           rm -rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/libgit2
         env:
           MACOSX_DEPLOYMENT_TARGET: 10.15
-      - name: Upload Release Asset
-        id: upload-release-asset-libgit2-only
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      # - name: Upload Release Asset
+      #   id: upload-release-asset-libgit2-only
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     upload_url: ${{ needs.github_release.outputs.release_upload_url }}
+      #     asset_path: ./darwin-libs-libgit2-only.tar.gz
+      #     asset_name: darwin-libs-libgit2-only.tar.gz
+      #     asset_content_type: application/gzip
+
+  goreleaser:
+    runs_on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
         with:
-          upload_url: ${{ needs.github_release.outputs.release_upload_url }}
-          asset_path: ./darwin-libs-libgit2-only.tar.gz
-          asset_name: darwin-libs-libgit2-only.tar.gz
-          asset_content_type: application/gzip
+          fetch-depth: 0
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.17.x
+      - name: Setup Cosign
+        uses: sigstore/cosign-installer@main
+      - name: Setup Syft
+        uses: anchore/sbom-action/download-syft@v0
+      - uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: release --rm-dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
