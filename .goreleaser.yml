@@ -14,8 +14,8 @@ checksum:
   extra_files:
     - glob: linux-x86_64-libgit2-all-libs.tar.gz
     - glob: linux-x86_64-libgit2-only-lib.tar.gz
-    - glob: darwin-libgit2-all-libs.tar.gz
-    - glob: darwin-libs-libgit2-only.tar.gz
+    # - glob: darwin-libgit2-all-libs.tar.gz
+    # - glob: darwin-libs-libgit2-only.tar.gz
 
 source:
   enabled: true
