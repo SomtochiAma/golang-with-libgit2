@@ -54,7 +54,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: *.tar.gz
+          path: linux-x86_64-libgit2-only-lib.tar.gz
           if-no-files-found: error
 
   darwin-release:
