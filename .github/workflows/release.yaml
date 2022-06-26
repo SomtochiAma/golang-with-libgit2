@@ -56,6 +56,11 @@ jobs:
           name: my-artifact
           path: linux-x86_64-libgit2-only-lib.tar.gz
           if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: linux-x86_64-libgit2-all-libs.tar.gz
+          if-no-files-found: error
 
   darwin-release:
     # This job builds and releases "universal libraries" that are
