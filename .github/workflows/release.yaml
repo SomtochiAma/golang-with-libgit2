@@ -51,6 +51,11 @@ jobs:
 
           tar -zcvf linux-x86_64-libgit2-only-lib.tar.gz libgit2-linux-libgit2-only
           rm -rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/libgit2
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: *.tar.gz
+          if-no-files-found: error
 
   darwin-release:
     # This job builds and releases "universal libraries" that are
@@ -151,6 +156,12 @@ jobs:
         uses: sigstore/cosign-installer@main
       - name: Setup Syft
         uses: anchore/sbom-action/download-syft@v0
+      - name: Download Files
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+      - name: Display structure of downloaded files
+        run: ls -R
       - uses: goreleaser/goreleaser-action@v2
         with:
           version: latest
