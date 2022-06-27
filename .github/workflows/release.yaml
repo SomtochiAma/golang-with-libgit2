@@ -55,7 +55,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: **/tar.gz
+          path: '*.tar.gz'
           if-no-files-found: error
       # - uses: actions/upload-artifact@v3
       #   with:
@@ -151,7 +151,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: **/tar.gz
+          path: '*.tar.gz'
           if-no-files-found: error
 
   goreleaser:
