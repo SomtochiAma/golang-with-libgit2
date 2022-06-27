@@ -6,8 +6,7 @@ builds:
 release:
   prerelease: auto
   extra_files:
-    - glob: linux-x86_64-libgit2-all-libs.tar.gz
-    - glob: linux-x86_64-libgit2-only-lib.tar.gz
+    - glob: '*.tar.gz'
 
 changelog:
   use: github-native
@@ -16,6 +15,8 @@ sboms:
   - artifacts: archive
   - id: source
     artifacts: source
+    documents:
+    - "{{ .ProjectName }}_{{ .Version }}_sbom.spdx.json"
 
 checksum:
   name_template: 'checksums.txt'
