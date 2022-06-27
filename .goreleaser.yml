@@ -12,21 +12,21 @@ release:
 changelog:
   use: github-native
 
+sboms:
+  - artifacts: archive
+  - id: source
+    artifacts: source
+
 checksum:
   name_template: 'checksums.txt'
-  extra_files:
-    - glob: linux-x86_64-libgit2-all-libs.tar.gz
-    - glob: linux-x86_64-libgit2-only-lib.tar.gz
+  # extra_files:
+  #   - glob: linux-x86_64-libgit2-all-libs.tar.gz
+  #   - glob: linux-x86_64-libgit2-only-lib.tar.gz
     # - glob: darwin-libgit2-all-libs.tar.gz
     # - glob: darwin-libs-libgit2-only.tar.gz
 
 source:
   enabled: true
-
-sboms:
-  - artifacts: archive
-  - id: source
-    artifacts: source
 
 signs:
   - cmd: cosign
