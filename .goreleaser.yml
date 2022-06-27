@@ -5,6 +5,9 @@ builds:
 
 release:
   prerelease: auto
+  extra_files:
+    - glob: linux-x86_64-libgit2-all-libs.tar.gz
+    - glob: linux-x86_64-libgit2-only-lib.tar.gz
 
 changelog:
   use: github-native
