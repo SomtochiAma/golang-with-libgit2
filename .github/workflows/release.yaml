@@ -156,7 +156,8 @@ jobs:
 
   goreleaser:
     runs-on: ubuntu-latest
-    needs: [linux-amd64-release]
+    needs: [linux-amd64-release, darwin-release]
+    if: always()
     steps:
       - uses: actions/checkout@v2
         with:
