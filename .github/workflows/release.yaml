@@ -141,10 +141,6 @@ jobs:
           rm -rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/libgit2
         env:
           MACOSX_DEPLOYMENT_TARGET: 10.15
-<<<<<<< HEAD
-=======
-
->>>>>>> c34af96 (Add container signing)
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
