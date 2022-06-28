@@ -26,6 +26,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Build static libraries - libgit2 compiled with libssh2 and openssl
         run: |
+          exit 1
           TARGET_DIR=${GITHUB_WORKSPACE}/build/libgit2-linux \
           BUILD_ROOT_DIR=${GITHUB_WORKSPACE}/libgit2/build/amd \
           ./hack/static.sh all
@@ -41,6 +42,7 @@ jobs:
 
       - name: Build static libraries - libgit2 only
         run: |
+          exit 1
           TARGET_DIR=${GITHUB_WORKSPACE}/build/libgit2-linux \
           BUILD_ROOT_DIR=${GITHUB_WORKSPACE}/libgit2/build/amd \
           ./hack/static.sh build_libgit2_only
@@ -57,11 +59,6 @@ jobs:
           name: my-artifact
           path: '*.tar.gz'
           if-no-files-found: error
-      # - uses: actions/upload-artifact@v3
-      #   with:
-      #     name: my-artifact
-      #     path: linux-x86_64-libgit2-all-libs.tar.gz
-      #     if-no-files-found: error
 
   darwin-release:
     # This job builds and releases "universal libraries" that are
@@ -80,6 +77,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Build universal static libraries for Darwin - libgit2 compiled with libssh2 and openssl
         run: |
+          exit 1
           TARGET_DIR=${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64 \
           BUILD_ROOT_DIR=${GITHUB_WORKSPACE}/libgit2/build/amd \
           ./hack/static.sh all
@@ -125,6 +123,7 @@ jobs:
 
       - name: Build universal static libraries for Darwin - libgit2 only
         run: |
+          exit 1
           TARGET_DIR=${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64 \
           BUILD_ROOT_DIR=${GITHUB_WORKSPACE}/libgit2/build/amd \
           ./hack/static.sh build_libgit2_only
