@@ -92,6 +92,8 @@ jobs:
           mv ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/lib/ossl-modules ./libgit2-darwin-libgit2-all/lib/
           mv ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/lib/pkgconfig ./libgit2-darwin-libgit2-all/lib/
 
+          ls -l ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/lib
+
           libtool -static -o ./libgit2-darwin-libgit2-all/lib/libcrypto.a \
             ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/lib/libcrypto.a \
             ${GITHUB_WORKSPACE}/build/libgit2-darwin-arm64/lib/libcrypto.a 
@@ -128,11 +130,12 @@ jobs:
           TARGET_ARCH=arm64 \
           CMAKE_APPLE_SILICON_PROCESSOR=arm64 \
           ./hack/static.sh build_libgit2_only
-          ls -l
+          ls -l ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/lib
 
           mkdir -p ./libgit2-darwin-libgit2-only
           mv ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/include ./libgit2-darwin-libgit2-only/
           mv ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/lib ./libgit2-darwin-libgit2-only/
+          ls -l ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/lib
 
           libtool -static -o ./libgit2-darwin-libgit2-only/lib/libgit2.a \
             ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/lib/libgit2.a \

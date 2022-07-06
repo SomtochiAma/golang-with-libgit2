@@ -225,6 +225,9 @@ function build_libgit2_only(){
 
     cmake --build . --target install
 
+    echo HEREEE
+    ls -l
+
     popd
     popd
 }
