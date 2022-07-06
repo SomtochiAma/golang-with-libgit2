@@ -184,6 +184,9 @@ function build_libgit2(){
     
     cmake --build . --target install
 
+    echo HEREEE
+    ls -l
+
     popd
     popd
 }

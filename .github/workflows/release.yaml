@@ -128,6 +128,7 @@ jobs:
           TARGET_ARCH=arm64 \
           CMAKE_APPLE_SILICON_PROCESSOR=arm64 \
           ./hack/static.sh build_libgit2_only
+          ls -l
 
           mkdir -p ./libgit2-darwin-libgit2-only
           mv ${GITHUB_WORKSPACE}/build/libgit2-darwin-amd64/include ./libgit2-darwin-libgit2-only/
