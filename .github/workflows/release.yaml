@@ -53,7 +53,7 @@ jobs:
           rm -rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/libgit2
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
+          name: release-artifact
           path: '*.tar.gz'
           if-no-files-found: error
 
@@ -143,7 +143,7 @@ jobs:
           MACOSX_DEPLOYMENT_TARGET: 10.15
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
+          name: release-artifact
           path: '*.tar.gz'
           if-no-files-found: error
 
@@ -165,9 +165,7 @@ jobs:
       - name: Download Files
         uses: actions/download-artifact@v3
         with:
-          name: my-artifact
-      - name: Display structure to check for downloaded files
-        run: ls -R
+          name: release-artifact
       - uses: goreleaser/goreleaser-action@v2
         with:
           version: latest
